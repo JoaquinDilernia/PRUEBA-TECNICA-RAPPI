@@ -1,0 +1,93 @@
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+.subtitulo {
+  margin-bottom: 24px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.formulario input,
+.formulario select {
+  font: inherit;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.fila-coordenadas {
+  display: flex;
+  gap: 12px;
+}
+
+.fila-coordenadas label {
+  flex: 1;
+}
+
+.formulario button {
+  font: inherit;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.formulario button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #e5484d;
+  margin-top: 16px;
+}
+
+.desglose {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.linea {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.linea-total {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.señal {
+  margin-top: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
