@@ -7,10 +7,20 @@ para poder usarlas como fallback si una corrida futura no puede alcanzar la API.
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-DEFAULT_HISTORY_PATH = Path("data/history.json")
+from financial_report.config import HISTORY_PATH as DEFAULT_HISTORY_PATH
+from financial_report.models import ExchangeRatesSnapshot
+
+__all__ = [
+    "DEFAULT_HISTORY_PATH",
+    "load_history",
+    "append_run",
+    "get_last_run",
+    "get_last_snapshot",
+]
 
 
 def load_history(path: Path = DEFAULT_HISTORY_PATH) -> list[dict[str, Any]]:
@@ -37,7 +47,18 @@ def get_last_run(path: Path = DEFAULT_HISTORY_PATH) -> dict[str, Any] | None:
     return history[-1] if history else None
 
 
-def get_last_rates(path: Path = DEFAULT_HISTORY_PATH) -> dict[str, float] | None:
-    """Tasas base de la última corrida guardada, para usar como fallback."""
+def get_last_snapshot(path: Path = DEFAULT_HISTORY_PATH) -> ExchangeRatesSnapshot | None:
+    """Reconstruye el snapshot de tasas de la última corrida, para usar como fallback."""
     last_run = get_last_run(path)
-    return last_run["rates"] if last_run else None
+    if last_run is None:
+        return None
+
+    source_updated_at_raw = last_run.get("source_updated_at")
+    source_updated_at = (
+        datetime.fromisoformat(source_updated_at_raw) if source_updated_at_raw else None
+    )
+    return ExchangeRatesSnapshot(
+        base="USD",
+        rates=last_run["rates"],
+        source_updated_at=source_updated_at,
+    )

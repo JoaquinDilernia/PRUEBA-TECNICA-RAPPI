@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import datetime
+
 from financial_report.currencies import LATAM_CURRENCIES
 from financial_report.models import CurrencyRow
 
@@ -16,11 +18,14 @@ def print_summary(
     devalued: CurrencyRow,
     stable: CurrencyRow,
     source: str,
+    source_updated_at: datetime | None = None,
 ) -> None:
     """Imprime el resumen del día: moneda más devaluada, más estable y la tabla completa."""
     origin_label = "datos en vivo" if source == "live" else "fallback (último historial guardado)"
     print()
     print(f"=== Reporte Financiero LATAM — fuente: {origin_label} ===")
+    if source_updated_at is not None:
+        print(f"Tasas base actualizadas por el proveedor: {source_updated_at.isoformat()}")
     print()
     print(f"Moneda más devaluada del día: {devalued.moneda} ({_format_pct(devalued.variacion)})")
     print(f"Moneda más estable del día:   {stable.moneda} ({_format_pct(stable.variacion)})")

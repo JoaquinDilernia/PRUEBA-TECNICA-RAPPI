@@ -3,6 +3,21 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
+
+
+@dataclass(frozen=True)
+class ExchangeRatesSnapshot:
+    """Tasas de cambio normalizadas, independientes del shape del proveedor.
+
+    Desacopla al resto de la app de los nombres de campo específicos de
+    la API (ej. `base_code` vs `base`, `time_last_update_unix` vs `date`),
+    para que un cambio de proveedor solo impacte en `api_client.py`.
+    """
+
+    base: str
+    rates: dict[str, float]
+    source_updated_at: datetime | None
 
 
 @dataclass(frozen=True)
