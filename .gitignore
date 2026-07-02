@@ -1,0 +1,11 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+dist/
+.agents/
+.claude/
+agent/
+skills-lock.json
