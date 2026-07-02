@@ -10,3 +10,6 @@ venv/
 .env
 
 node_modules/
+
+# Artefactos generados en cada corrida (historial + reportes), no se versionan
+data/
